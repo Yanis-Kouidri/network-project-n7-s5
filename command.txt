@@ -1,0 +1,1 @@
+docker run --name dns --rm -it -v /home/n7student/Documents/Docker/dns/kouidri.zone:/etc/bind/kouidri.zone -v /home/n7student/Documents/Docker/dns/named.conf.local:/etc/bind/named.conf.local ubuntu/bind9

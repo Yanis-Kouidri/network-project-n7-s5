@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  dns:
+    image: ubuntu/bind9
+    networks:
+      - dmz
+    volumes:
+      - ./dns/kouidri.zone:/etc/bind/kouidri.zone
+      - ./dns/named.conf.local:/etc/bind/named.conf.local
+  web:
+    image: web-page
+    networks:
+      - dmz
+
+networks:
+  dmz:
+    name: dmz
+    external: true
+
