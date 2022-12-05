@@ -8,6 +8,6 @@ $TTL	86400
 			  86400 )	; Negative Cache TTL
 ;
 @	IN	NS	kouidri.fr.		
-@   IN  A   172.16.1.1
+@   IN  A   172.20.1.1
 
-www	IN	A	172.16.1.1	    
+www	IN	A	172.20.1.1	    
