@@ -13,7 +13,18 @@ services:
       - dmz
 
 networks:
-  dmz:
-    name: dmz
-    external: true
+  dmz: 
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.1.0/24
+          gateway: 172.20.1.254
+        
+  prive:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.2.0/24
+          gateway: 172.20.2.254
+
 
