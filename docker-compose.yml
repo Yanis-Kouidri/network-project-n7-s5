@@ -1,16 +1,20 @@
 version: "3.9"
 services:
   dns:
-    image: ubuntu/bind9
+    image: defreitas/dns-proxy-server
     networks:
       - dmz
     volumes:
-      - ./dns/kouidri.zone:/etc/bind/kouidri.zone
-      - ./dns/named.conf.local:/etc/bind/named.conf.local
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/resolv.conf:/etc/resolv.conf
+    hostname: dns.kouidri.fr
   web:
     build: ./web-server/.
     networks:
       - dmz
+    hostname: www.kouidri.fr
+    ports:
+      - 80:80
 
 networks:
   dmz: 
