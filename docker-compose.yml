@@ -7,8 +7,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/resolv.conf:/etc/resolv.conf
-      - /opt/dns-proxy-server/conf:/app/conf
+      - ./dns/conf:/app/conf
     hostname: dns.kouidri.fr
+      
+
   web:
     build: ./web-server/.
     networks:
