@@ -1,17 +1,14 @@
 version: "3.9"
 services:
-  dns:
+  intern-dns:
     image: defreitas/dns-proxy-server
     networks:
-      dmz:
-        ipv4_address: 172.20.1.2
+      - dmz
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/resolv.conf:/etc/resolv.conf
       - ./dns/conf:/app/conf
     hostname: dns.kouidri.fr
-    ports:
-      - "53/udp"
       
 
   web:
@@ -21,6 +18,21 @@ services:
     hostname: www.kouidri.fr
     ports:
       - 80:80
+
+  extern-dns:
+    image: ubuntu/bind9
+    networks:
+      dmz:
+        ipv4_address: 172.20.1.3 
+    volumes:
+      - ./dns/bind/kouidri.zone:/etc/bind/kouidri.zone
+      - ./dns/bind/named.conf.local:/etc/bind/named.conf.local
+    hostname: pub-dns.kouidri.fr
+    ports:
+      - 53/udp
+      - 53/tcp
+      - 953/tcp
+
 
 networks:
   dmz: 
