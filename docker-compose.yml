@@ -9,7 +9,6 @@ services:
       - /etc/resolv.conf:/etc/resolv.conf
       - ./dns/conf:/app/conf
     hostname: dns.kouidri.fr
-      
 
   web:
     build: ./web-server/.
@@ -18,6 +17,9 @@ services:
     hostname: www.kouidri.fr
     ports:
       - 80:80
+    depends_on:
+      - extern-dns
+      - intern-dns
 
   extern-dns:
     image: ubuntu/bind9
@@ -33,7 +35,6 @@ services:
       - 53/tcp
       - 953/tcp
 
-
   proxy:
     image: ubuntu/squid
     ports:
@@ -42,6 +43,9 @@ services:
     hostname: proxy.kouidri.fr
     networks:
       - dmz
+    depends_on:
+      - extern-dns
+      - intern-dns
 
 
 networks:
